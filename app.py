@@ -1,6 +1,7 @@
-from flask import Flask, request, send_file
+from flask import Flask, request
 from docx import Document
 import io
+import ftplib
 
 app = Flask(__name__)
 
@@ -21,13 +22,17 @@ def generate_word():
     doc.save(file_stream)
     file_stream.seek(0)
 
-    # 返回文件供用户下载
-    return send_file(
-        file_stream,
-        as_attachment=True,
-        download_name='output.docx',
-        mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-    )
+    # 连接到 FTP 服务器
+    ftp = ftplib.FTP('192.168.1.26')
+    ftp.login('用户名', '密码')
+
+    # 上传文件
+    ftp.storbinary('STOR output.docx', file_stream)
+
+    # 关闭 FTP 连接
+    ftp.quit()
+
+    return "文件已成功发送到指定电脑"
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -2,8 +2,12 @@ from flask import Flask, request
 from docx import Document
 import io
 import ftplib
+import logging
 
 app = Flask(__name__)
+
+# 配置日志
+logging.basicConfig(level=logging.DEBUG)
 
 @app.route('/generate_word', methods=['POST'])  # 确保支持 POST 方法
 def generate_word():

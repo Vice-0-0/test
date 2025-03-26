@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>客户信息收集</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <h1>客户信息收集</h1>
+  <form id="customerForm">
+    <label for="name">姓名:</label>
+    <input type="text" id="name" name="name" required><br>
+
+    <label for="email">电子邮件:</label>
+    <input type="email" id="email" name="email" required><br>
+
+    <label for="phone">电话号码:</label>
+    <input type="tel" id="phone" name="phone"><br>
+
+    <label for="message">留言:</label>
+    <textarea id="message" name="message"></textarea><br>
+
+    <input type="submit" value="提交">
+  </form>
+  <div id="confirmation" style="display: none;">
+    <p>感谢您提交信息！我们会尽快与您联系。</p>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>

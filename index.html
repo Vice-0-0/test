@@ -58,7 +58,7 @@
 </head>
 
 <body>
-  <form>
+  <form id="myForm">
     <label for="companyName">公司名称:</label>
     <input type="text" id="companyName" name="companyName" required>
     <label for="endUserFullName">最终用户全称:</label>
@@ -74,8 +74,30 @@
     <input type="text" id="cpu" name="cpu" required>
     <label for="os">操作系统:</label>
     <input type="text" id="os" name="os" required>
-    <input type="submit" value="提交">
+    <input type="button" value="提交并生成 Word" onclick="submitForm()">
   </form>
+
+  <script>
+    function submitForm() {
+      const form = document.getElementById('myForm');
+      const formData = new FormData(form);
+
+      fetch('/generate_word', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.blob())
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'output.docx';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      })
+      .catch(error => console.error('Error:', error));
+    }
+  </script>
 </body>
 
 </html>

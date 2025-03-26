@@ -24,7 +24,17 @@ label {
   margin-bottom: 5px;
 }
 
+/* 新增或修改输入框选择器 */
 input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+/* 这里可以根据需要添加更多样式 */
 input[type="email"],
 input[type="tel"],
 textarea {

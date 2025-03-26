@@ -1,34 +1,19 @@
-<!DOCTYPE html>
-<html lang="zh">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>客户信息收集</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-
-<body>
-  <h1>客户信息收集</h1>
-  <form id="customerForm">
-    <label for="name">姓名:</label>
-    <input type="text" id="name" name="name" required><br>
-
-    <label for="email">电子邮件:</label>
-    <input type="email" id="email" name="email" required><br>
-
-    <label for="phone">电话号码:</label>
-    <input type="tel" id="phone" name="phone"><br>
-
-    <label for="message">留言:</label>
-    <textarea id="message" name="message"></textarea><br>
-
-    <input type="submit" value="提交">
-  </form>
-  <div id="confirmation" style="display: none;">
-    <p>感谢您提交信息！我们会尽快与您联系。</p>
-  </div>
-  <script src="script.js"></script>
-</body>
-
-</html>
+<form>
+  <label for="companyName">公司名称:</label>
+  <input type="text" id="companyName" name="companyName" required>
+  <label for="endUserFullName">最终用户全称:</label>
+  <input type="text" id="endUserFullName" name="endUserFullName" required>
+  <label for="productName">产品名称:</label>
+  <!-- 原文本输入框替换为下拉选择框 -->
+  <select id="productName" name="productName" required>
+    <option value="金山志远WPS">金山志远WPS</option>
+    <option value="金山办公2023">金山办公2023</option>
+  </select>
+  <label for="quantity">数量:</label>
+  <input type="number" id="quantity" name="quantity" required>
+  <label for="cpu">CPU:</label>
+  <input type="text" id="cpu" name="cpu" required>
+  <label for="os">操作系统:</label>
+  <input type="text" id="os" name="os" required>
+  <input type="submit" value="提交">
+</form>

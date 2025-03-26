@@ -1,15 +1,18 @@
 document.getElementById('customerForm').addEventListener('submit', function (e) {
   e.preventDefault();
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const phone = document.getElementById('phone').value;
-  const message = document.getElementById('message').value;
+  // 新增代码：获取新的表单字段值
+  const companyName = document.getElementById('companyName').value;
+  const endUser = document.getElementById('endUser').value;
+  const productName = document.getElementById('productName').value;
+  const architecture = document.getElementById('architecture').value;
+  const orderQuantity = document.getElementById('orderQuantity').value;
 
   // 这里可以添加代码将数据发送到服务器
-  console.log('姓名:', name);
-  console.log('电子邮件:', email);
-  console.log('电话号码:', phone);
-  console.log('留言:', message);
+  console.log('公司名称:', companyName);
+  console.log('最终用户全称:', endUser);
+  console.log('产品名称:', productName);
+  console.log('运行架构:', architecture);
+  console.log('下单数量:', orderQuantity);
 
   // 显示确认信息
   document.getElementById('customerForm').style.display = 'none';

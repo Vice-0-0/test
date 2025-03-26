@@ -74,24 +74,23 @@
     <input type="text" id="cpu" name="cpu" required>
     <label for="os">操作系统:</label>
     <input type="text" id="os" name="os" required>
-    <input type="button" value="提交并生成 Word" onclick="submitForm()">
+    <input type="button" value="提交并生成" onclick="submitForm()">
   </form>
 
   <script>
     function submitForm() {
       const form = document.getElementById('myForm');
       const formData = new FormData(form);
-  
-      fetch('/generate_word', {
-        method: 'POST', // 确保使用 POST 方法
-        body: formData
+      let queryString = '';
+      for (let [key, value] of formData.entries()) {
+        queryString += `${key}=${encodeURIComponent(value)}&`;
+      }
+      queryString = queryString.slice(0, -1); // 去掉最后一个 &
+
+      fetch(`/generate_word?${queryString}`, {
+        method: 'GET'
       })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.blob();
-      })
+      .then(response => response.blob())
       .then(blob => {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');

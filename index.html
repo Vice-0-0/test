@@ -81,9 +81,9 @@
     function submitForm() {
       const form = document.getElementById('myForm');
       const formData = new FormData(form);
-
+  
       fetch('/generate_word', {
-        method: 'POST',
+        method: 'POST',  // 确保是 POST 方法
         body: formData
       })
       .then(response => response.blob())

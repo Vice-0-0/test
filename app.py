@@ -5,8 +5,11 @@ import ftplib
 
 app = Flask(__name__)
 
-@app.route('/generate_word', methods=['POST'])
+@app.route('/generate_word', methods=['POST'])  # 确保支持 POST 方法
 def generate_word():
+    app.logger.debug(f"Request method: {request.method}")
+    app.logger.debug(f"Request URL: {request.url}")
+    app.logger.debug(f"Request data: {request.form}")
     data = request.form
     # 加载 Word 模板
     doc = Document('template.docx')

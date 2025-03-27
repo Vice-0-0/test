@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>信息收集表单</title>
+  <!-- 引入样式 -->
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -55,6 +56,10 @@
       background-color: #0056b3;
     }
   </style>
+  <!-- 引入 mammoth.js、jszip 和 file-saver 库 -->
+  <script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 </head>
 
 <body>
@@ -74,29 +79,44 @@
     <input type="text" id="cpu" name="cpu" required>
     <label for="os">操作系统:</label>
     <input type="text" id="os" name="os" required>
-    <input type="button" value="提交生成 Word" onclick="submitForm()">
+    <input type="button" value="提交并生成 Word" onclick="submitForm()">
   </form>
 
   <script>
     function submitForm() {
       const form = document.getElementById('myForm');
-      const formData = new FormData(form);
-      const queryParams = new URLSearchParams(formData).toString();
-      const url = `/generate_word?${queryParams}`;
+      const companyName = document.getElementById('companyName').value;
+      const endUserFullName = document.getElementById('endUserFullName').value;
+      const productName = document.getElementById('productName').value;
+      const quantity = document.getElementById('quantity').value;
+      const cpu = document.getElementById('cpu').value;
+      const os = document.getElementById('os').value;
 
-      fetch(url, {
-        method: 'GET'
-      })
-      .then(response => response.blob())
-      .then(blob => {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'output.docx';
-        a.click();
-        window.URL.revokeObjectURL(url);
-      })
-      .catch(error => console.error('Error:', error));
+      // 创建 HTML 模板
+      const htmlTemplate = `
+        <html>
+          <body>
+            <h1>订单信息</h1>
+            <p>公司名称: ${companyName}</p>
+            <p>最终用户全称: ${endUserFullName}</p>
+            <p>产品名称: ${productName}</p>
+            <p>数量: ${quantity}</p>
+            <p>CPU: ${cpu}</p>
+            <p>操作系统: ${os}</p>
+          </body>
+        </html>
+      `;
+
+      // 使用 mammoth.js 将 HTML 转换为 Word 文档
+      mammoth.convertToDocx(htmlTemplate)
+        .then(result => {
+          const blob = new Blob([result.value], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+          // 使用 FileSaver 保存文件
+          saveAs(blob, 'order_info.docx');
+        })
+        .catch(error => {
+          console.error('生成 Word 文档时出错:', error);
+        });
     }
   </script>
 </body>
